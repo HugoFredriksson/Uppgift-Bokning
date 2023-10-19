@@ -8,8 +8,7 @@ function init()
     for(let i = 0;i<formElem.roomType.length;i++){
         formElem.roomType[i].addEventListener("click",event=>{
             checkIfFamilyRoom(); 
-            costCalc();
-            
+            costCalc();            
         });
     }
 
@@ -18,6 +17,14 @@ function init()
             costCalc();
         });
     }
+
+    formElem.city.addEventListener("blur", ()=>{
+        capitalizeCity();
+    })
+
+    formElem.telephone.addEventListener("blur", ()=>{
+        validate();
+    })
 }
 
 function costCalc() {
@@ -38,6 +45,27 @@ function costCalc() {
    
 }
 
+function capitalizeCity() {
+    let city = formElem.city.value;
+    city = city.toUpperCase();
+    console.log(city);
+    formElem.city.value=city;
+    console.log(formElem.city.value);
+}
+
+function validate() {
+    let telephone = formElem.telephone.value;
+    const regexPhone = /^0[0-9-/ ]{6,14}$/;
+    const regexCampaign = /[A-Za-z]{3}-[0-9]{2}-[A-Za-z]{1}[0-9]{1}$/; 
+    const regexZip = /[0-9]{5}$/;
+    if (regexPhone.test(telephone)) {
+        formElem.telephone.parentNode.style.color = "#008000";
+    } else {
+        formElem.telephone.style.color = "#FF0000"
+    }
+
+}
+
 window.onload = init;
 
 function checkIfFamilyRoom(){
@@ -55,3 +83,4 @@ function checkIfFamilyRoom(){
         formElem.addition[2].parentNode.style.color = "#000";
     }
 }
+
