@@ -23,7 +23,23 @@ function init()
     })
 
     formElem.telephone.addEventListener("blur", ()=>{
-        validate();
+        validateTelephone();
+    })
+
+    formElem.zipcode.addEventListener("blur", ()=>{
+        validateZip();
+    })
+
+    formElem.campaigncode.addEventListener("blur", ()=>{
+        validateCampaign();
+    })
+
+    formElem.campaigncode.addEventListener("keyup", ()=>{
+        validateStartCampaign();
+    })
+
+    formElem.campaigncode.addEventListener("focus", ()=>{
+        validateFocusCampaign();
     })
 }
 
@@ -53,17 +69,69 @@ function capitalizeCity() {
     console.log(formElem.city.value);
 }
 
-function validate() {
+function validateTelephone() {
     let telephone = formElem.telephone.value;
+    let errorMsg = formElem.telephone.parentNode.parentNode.getElementsByTagName("span")[1];
     const regexPhone = /^0[0-9-/ ]{6,14}$/;
-    const regexCampaign = /[A-Za-z]{3}-[0-9]{2}-[A-Za-z]{1}[0-9]{1}$/; 
-    const regexZip = /[0-9]{5}$/;
+    
     if (regexPhone.test(telephone)) {
-        formElem.telephone.parentNode.style.color = "#008000";
+        console.log("hej");
+        errorMsg.innerHTML="";
+        formElem.telephone.style.color = "#008000";
     } else {
-        formElem.telephone.style.color = "#FF0000"
+        formElem.telephone.style.color = "#FF0000";
+        errorMsg = formElem.telephone.parentNode.parentNode.getElementsByTagName("span")[1];
+        errorMsg.innerHTML = "Telefonnumret måste börja med 0 och innehålla 6 - 14 siffror";
     }
+}
 
+function validateZip() {
+    let zipcode = formElem.zipcode.value;
+    let errorMsg = formElem.zipcode.parentNode.parentNode.getElementsByTagName("span")[1];
+    const regexZip = /[0-9]{5}$/; 
+
+    if (regexZip.test(zipcode)) {
+        console.log("test");
+        errorMsg.innerHTML="";
+        formElem.zipcode.style= "#008000"; 
+    } else {
+        formElem.zipcode.style.color = "#FF0000"; 
+        errorMsg = formElem.zipcode.parentNode.parentNode.getElementsByTagName("span")[1];
+        errorMsg.innerHTML = "Postnummret måste innehålla sex siffror";
+    }
+}
+
+function validateCampaign() {
+    let campaign = formElem.campaigncode.value; 
+    const regexCampaign = /[A-Za-z]{3}-[0-9]{2}-[A-Za-z]{1}[0-9]{1}$/;
+    
+    if (regexCampaign.test(campaign)) {
+        formElem.campaigncode.style.backgroundColor = "#008000";
+    } else {
+        formElem.campaigncode.style.backgroundColor = "#FF0000"; 
+    }
+}
+
+function validateStartCampaign() {
+    let campaign = formElem.campaigncode.value; 
+    const regexCampaign = /[A-Za-z]{3}-[0-9]{2}-[A-Za-z]{1}[0-9]{1}$/;
+    
+    if (regexCampaign.test(campaign)) {
+        formElem.campaigncode.style.backgroundColor = "#008000";
+    } else {
+        formElem.campaigncode.style.backgroundColor = "#FF0000"; 
+    }
+}
+
+function validateFocusCampaign() {
+    let campaign = formElem.campaigncode.value;
+    const regexCampaign = /[A-Za-z]{3}-[0-9]{2}-[A-Za-z]{1}[0-9]{1}$/;
+
+    if (regexCampaign.test(campaign)) {
+        formElem.campaigncode.style.backgroundColor = "#008000";
+    } else {
+        formElem.campaigncode.style.backgroundColor = "#FF0000"; 
+    }
 }
 
 window.onload = init;
