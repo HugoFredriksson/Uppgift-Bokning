@@ -46,7 +46,6 @@ function init()
 function costCalc() {
     let roomType = Number(formElem.elements.roomType.value.split(",")[1]);
     let nights = Number(formElem.elements.nights.value);
-    console.log(formElem.addition[2].disabled);
     for(i=0;i<formElem.addition.length;i++){
        
         if(formElem.addition[i].checked && !formElem.addition[i].disabled){
@@ -54,8 +53,6 @@ function costCalc() {
         }
     }
     //let addition = Number(formElem.elements.addition.value.split(",")[1])
-    console.log(roomType);
-    console.log(nights)
     //console.log(addition);
    document.getElementById("totalCost").innerHTML = (roomType * nights);
    
@@ -64,9 +61,7 @@ function costCalc() {
 function capitalizeCity() {
     let city = formElem.city.value;
     city = city.toUpperCase();
-    console.log(city);
     formElem.city.value=city;
-    console.log(formElem.city.value);
 }
 
 function validateTelephone() {
@@ -75,7 +70,6 @@ function validateTelephone() {
     const regexPhone = /^0[0-9-/ ]{6,14}$/;
     
     if (regexPhone.test(telephone)) {
-        console.log("hej");
         errorMsg.innerHTML="";
         formElem.telephone.style.color = "#008000";
     } else {
@@ -91,13 +85,12 @@ function validateZip() {
     const regexZip = /[0-9]{5}$/; 
 
     if (regexZip.test(zipcode)) {
-        console.log("test");
         errorMsg.innerHTML="";
         formElem.zipcode.style= "#008000"; 
     } else {
         formElem.zipcode.style.color = "#FF0000"; 
         errorMsg = formElem.zipcode.parentNode.parentNode.getElementsByTagName("span")[1];
-        errorMsg.innerHTML = "Postnummret måste innehålla sex siffror";
+        errorMsg.innerHTML = "Postnummret måste innehålla fem siffror";
     }
 }
 
@@ -138,13 +131,11 @@ window.onload = init;
 
 function checkIfFamilyRoom(){
     if(formElem.roomType[2].checked === true){
-        console.log("true");
         formElem.persons.disabled = false;
         formElem.persons.parentNode.style.color = "#000";
         formElem.addition[2].disabled = true;
         formElem.addition[2].parentNode.style.color = "#999";
     }else{
-        console.log("false");
         formElem.persons.disabled = true;
         formElem.persons.parentNode.style.color = "#999";
         formElem.addition[2].disabled = false;
